@@ -28,6 +28,7 @@ function renderDashboard(d){
   fire.querySelector('.panel p').textContent=pct(p[13]/s.destroyed)+' do total individual dos membros participantes.';
   fire.querySelector('.note').textContent='Escopo individual da temporada. Data indicada na seção de armamentos: '+(m.weaponDate||'não informada')+'. Coleta geral: '+date+'. “Sem classificação” não identifica incêndio ou inundação; aeronaves indica navios destruídos.';
   renderWeaponDetails(d);
+  renderWeaponHonors(d);
   const paragraphs=query('#fontes').querySelectorAll('p');
   paragraphs[0].textContent='Última sincronização bem-sucedida: '+sync+' (Brasília). Data de coleta informada na planilha: '+date+'. O GitHub consulta a planilha a cada hora; alterações aparecem após uma execução bem-sucedida e sua publicação.';
   paragraphs[2].textContent=m.closing||'As datas e previsões da campanha seguem as informações registradas na planilha.';
