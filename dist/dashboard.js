@@ -7,15 +7,15 @@ function renderDashboard(d){
   query('#panorama .grid2').innerHTML=d.teams.map(t=>'<article class="panel"><div class="team"><div><div class="eyebrow">Equipe</div><h3>'+esc(t.name)+'</h3></div><div class="rating">'+num(t.rating)+' <small style="font-size:11px">rating</small></div></div><div class="bar"><i style="width:'+t.rate*100+'%"></i></div><div class="detail"><span>'+num(t.battles)+' batalhas</span><span>'+num(t.wins)+' vitórias</span><span>'+pct(t.rate)+' aproveitamento</span></div></article>').join('');
   const coverage='Histórico detalhado: '+num(s.detailed)+' de '+num(s.battles)+' partidas ('+pct(s.detailed/s.battles)+'). '+num(s.pending)+' partidas ainda sem detalhes.';
   query('#panorama .note').textContent=coverage+' “Sem vitória” inclui eventuais empates, que a API do clã não separa.';
-  const eligible=d.players.filter(r=>r[2]>=10);
+  const eligible=d.players.filter(r=>r[2]>=20);
   const leader=(list,index)=>[...list].sort((a,b)=>b[index]-a[index]||a[0].localeCompare(b[0]))[0];
-  const awards=[['Presença no convés',leader(d.players,2),2,num,'batalhas na temporada'],['Martelo da frota',leader(eligible,7),7,num,'dano médio por batalha'],['Casco resistente',leader(eligible,10),10,pct,'taxa de sobrevivência'],['Colecionador de vitórias',leader(eligible,6),6,pct,'aproveitamento'],['Caçador de navios',leader(eligible,9),9,dec,'destruições por batalha'],['Holofote da frota',leader(eligible,15),15,num,'dano por detecção total']];
+  const awards=[['Presença no convés',leader(d.players,2),2,num,'batalhas na temporada'],['Martelo da frota',leader(eligible,7),7,num,'dano médio por batalha'],['Casco resistente',leader(eligible,10),10,pct,'taxa de sobrevivência'],['Colecionador de vitórias',leader(eligible,6),6,pct,'aproveitamento'],['Caçador de navios',leader(eligible,9),9,dec,'destruições por batalha'],['Holofote da frota',leader(d.players,15),15,num,'dano por detecção total']];
   const honors=['Medalha de Serviço Naval','Ordem da Artilharia','Cruz da Resistência','Estrela da Vitória','Medalha de Combate','Ordem da Vigilância'];
   const symbols=['⚓','✦','◆','★','✶','◉'];
   const board=query('.highlights').closest('section');board.id='condecoracoes';board.classList.add('honors-board');
   board.querySelector('.eyebrow').textContent='02 / Quadro de condecorações';
   board.querySelector('h2').textContent='Honra ao mérito da frota.';
-  board.querySelector('.head p').textContent='Condecorações simbólicas da STAR Wise · Temporada 35. Desempenho comparado com mínimo de 10 batalhas; participação considera todos os jogadores.';
+  board.querySelector('.head p').textContent='Condecorações simbólicas da STAR Wise · Temporada 35. Médias e taxas exigem pelo menos 20 batalhas. Participação e dano por detecção total consideram todos os jogadores.';
   query('.highlights').innerHTML=awards.map(([label,p,index,format,unit],i)=>'<article class="award honor honor-'+i+'"><div class="medal" aria-hidden="true"><div class="ribbon"></div><div class="medal-ring"><span>'+symbols[i]+'</span></div></div><div class="honor-title">'+honors[i]+'</div><small class="honor-citation">'+esc(label)+'</small><h3>'+esc(p?.[0]||'Sem amostra elegível')+'</h3><div class="honor-result"><b>'+(p?format(p[index]):'—')+'</b><small>'+esc(unit)+'</small></div><div class="honor-seal">STAR WISE · T35</div></article>').join('');
   renderMedalParticipants(d);
   query('#mapas > p').textContent='Compare o aproveitamento e a quantidade de vitórias e derrotas em cada mapa, considerando somente as partidas detalhadas.';

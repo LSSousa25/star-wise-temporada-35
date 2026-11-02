@@ -1,11 +1,11 @@
 function renderMedalParticipants(d){
   const categories=[
     {index:2,format:num,label:'Batalhas',minimum:0},
-    {index:7,format:num,label:'Dano médio',minimum:10},
-    {index:10,format:pct,label:'Sobrevivência',minimum:10},
-    {index:6,format:pct,label:'Aproveitamento',minimum:10},
-    {index:9,format:dec,label:'Destruições / batalha',minimum:10},
-    {index:15,format:num,label:'Dano por detecção',minimum:10}
+    {index:7,format:num,label:'Dano médio',minimum:20},
+    {index:10,format:pct,label:'Sobrevivência',minimum:20},
+    {index:6,format:pct,label:'Aproveitamento',minimum:20},
+    {index:9,format:dec,label:'Destruições / batalha',minimum:20},
+    {index:15,format:num,label:'Dano por detecção',minimum:0}
   ];
   document.querySelectorAll('.honor').forEach((card,i)=>{
     const category=categories[i];
