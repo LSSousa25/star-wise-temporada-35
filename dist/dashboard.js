@@ -10,7 +10,13 @@ function renderDashboard(d){
   const eligible=d.players.filter(r=>r[2]>=10);
   const leader=(list,index)=>[...list].sort((a,b)=>b[index]-a[index]||a[0].localeCompare(b[0]))[0];
   const awards=[['Presença no convés',leader(d.players,2),2,num,'batalhas na temporada'],['Martelo da frota',leader(eligible,7),7,num,'dano médio por batalha'],['Casco resistente',leader(eligible,10),10,pct,'taxa de sobrevivência'],['Colecionador de vitórias',leader(eligible,6),6,pct,'aproveitamento'],['Caçador de navios',leader(eligible,9),9,dec,'destruições por batalha'],['Holofote da frota',leader(eligible,15),15,num,'dano por detecção total']];
-  query('.highlights').innerHTML=awards.map(([label,p,index,format,unit])=>'<article class="award"><small>'+esc(label)+'</small><h3>'+esc(p?.[0]||'Sem amostra elegível')+'</h3><b>'+(p?format(p[index]):'—')+'</b><small>'+esc(unit)+'</small></article>').join('');
+  const honors=['Medalha de Serviço Naval','Ordem da Artilharia','Cruz da Resistência','Estrela da Vitória','Medalha de Combate','Ordem da Vigilância'];
+  const symbols=['⚓','✦','◆','★','✶','◉'];
+  const board=query('.highlights').closest('section');board.id='condecoracoes';board.classList.add('honors-board');
+  board.querySelector('.eyebrow').textContent='02 / Quadro de condecorações';
+  board.querySelector('h2').textContent='Honra ao mérito da frota.';
+  board.querySelector('.head p').textContent='Condecorações simbólicas da STAR Wise · Temporada 35. Desempenho comparado com mínimo de 10 batalhas; participação considera todos os jogadores.';
+  query('.highlights').innerHTML=awards.map(([label,p,index,format,unit],i)=>'<article class="award honor honor-'+i+'"><div class="medal" aria-hidden="true"><div class="ribbon"></div><div class="medal-ring"><span>'+symbols[i]+'</span></div></div><div class="honor-title">'+honors[i]+'</div><small class="honor-citation">'+esc(label)+'</small><h3>'+esc(p?.[0]||'Sem amostra elegível')+'</h3><div class="honor-result"><b>'+(p?format(p[index]):'—')+'</b><small>'+esc(unit)+'</small></div><div class="honor-seal">STAR WISE · T35</div></article>').join('');
   query('#mapas > p').textContent='Compare o aproveitamento e a quantidade de vitórias e derrotas em cada mapa, considerando somente as partidas detalhadas.';
   query('#mapas .note').textContent=coverage+' O ranking pode mudar com os registros faltantes.';
   query('#tripulacao > p').textContent='Estatísticas de toda a temporada de cada conta, incluindo eventuais partidas em outros clãs. A soma de participações não equivale às '+num(s.battles)+' partidas da STAR Wise.';
