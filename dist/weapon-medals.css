@@ -1,0 +1,13 @@
+.weapon-honors .medal{width:154px;height:160px;margin:0 auto 20px;display:grid;place-items:center;transform:none!important;filter:drop-shadow(0 8px 6px #0007)}
+.weapon-honors .ribbon{left:48px;top:0;width:58px;height:57px;transform:skew(-7deg);clip-path:polygon(0 0,100% 0,87% 76%,44% 100%,0 76%)}
+.weapon-honors .medal-ring{top:43px;left:18px;width:118px;height:112px;border:0;border-radius:0;transform:none;background:linear-gradient(135deg,#e5d1a2,#997445 34%,#e5c98f 55%,#725334);clip-path:polygon(23% 0,77% 5%,100% 26%,88% 73%,48% 100%,5% 74%,0 27%);box-shadow:none;display:grid;place-items:center}
+.weapon-honors .medal-ring:before{inset:6px;background:linear-gradient(140deg,#27475b,#0c2234 70%);border:1px solid #c4a16b;border-radius:0;clip-path:polygon(23% 0,77% 5%,100% 26%,88% 73%,48% 100%,5% 74%,0 27%)}
+.weapon-honors .medal-ring svg{position:relative;z-index:1;width:77px;height:77px;stroke:#e0c38a;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 1px #000)}
+.weapon-honors .honor-1 .medal-ring{clip-path:polygon(8% 8%,72% 0,100% 35%,83% 83%,34% 100%,0 61%)}.weapon-honors .honor-1 .medal-ring:before{clip-path:inherit}
+.weapon-honors .honor-2 .medal-ring{clip-path:polygon(20% 0,82% 12%,100% 62%,57% 100%,7% 81%,0 30%)}.weapon-honors .honor-2 .medal-ring:before{clip-path:inherit}
+.weapon-honors .honor-3 .medal-ring{clip-path:polygon(0 28%,63% 0,100% 17%,91% 70%,42% 100%,12% 78%)}.weapon-honors .honor-3 .medal-ring:before{clip-path:inherit}
+.weapon-honors .honor-4 .medal-ring{clip-path:polygon(5% 10%,70% 0,100% 40%,72% 100%,20% 84%,0 43%)}.weapon-honors .honor-4 .medal-ring:before{clip-path:inherit}
+.weapon-honors .honor-5 .medal-ring{clip-path:polygon(28% 0,85% 9%,100% 52%,71% 93%,14% 100%,0 38%)}.weapon-honors .honor-5 .medal-ring:before{clip-path:inherit}
+.weapon-honors .honor{display:flex;flex-direction:column;align-items:center}.weapon-honors .honor-title,.weapon-honors .honor-citation,.weapon-honors .honor-result{width:100%;text-align:center}.weapon-honors .honor-title{min-height:50px;padding:0 4px}.weapon-honors .honor h3{width:100%;text-align:center;min-height:28px}.weapon-honors .medal-participants,.weapon-honors .honor-seal{width:calc(100% + 32px)}.weapon-honors .honor-result{margin-top:auto}.weapon-honors .highlights{align-items:stretch}.weapon-honors .medal-participants{text-align:left}
+@media(max-width:600px){.weapon-honors .medal{width:140px;height:150px}.weapon-honors .medal-ring{left:14px;width:112px;height:106px}.weapon-honors .ribbon{left:42px}.weapon-honors .medal-ring svg{width:70px;height:70px}}
+
