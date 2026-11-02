@@ -1,0 +1,19 @@
+:root{--bg:#06111e;--panel:#0e263b;--line:#4a5661;--muted:#b0c2ce;--ink:#ece8dc;--gold:#c4a16b;--mint:#94c8d8}
+body{background-color:#06111e;background-image:radial-gradient(ellipse at 85% 5%,#16456845,transparent 38%),linear-gradient(#80b4d305 1px,transparent 1px),linear-gradient(90deg,#80b4d305 1px,transparent 1px);background-size:auto,64px 64px,64px 64px}
+header{background:#06111ef5;border-bottom-color:#b18b5255}.brand{display:flex;align-items:center;gap:13px;letter-spacing:3px}.brand:after{display:none}.brand-wordmark>small{display:block;font:8px/1.6 'Courier New',monospace;letter-spacing:3px;color:#9eb6c9}.brand-wordmark>span{color:#c4a16b}
+.clan-crest{position:relative;display:block;aspect-ratio:473/550;overflow:hidden;clip-path:polygon(50% 1%,69% 4%,88% 16%,86% 22%,94% 34%,99% 49%,98% 63%,92% 75%,94% 82%,86% 85%,82% 93%,66% 97%,50% 99%,34% 97%,18% 93%,14% 85%,6% 82%,8% 75%,2% 63%,1% 49%,6% 34%,14% 22%,12% 16%,31% 4%)}
+.clan-crest img{position:absolute!important;top:-42.7%;left:0;width:100%!important;height:auto;max-width:none;display:block;animation:none!important;filter:none!important;opacity:1!important}
+.brand .clan-crest{width:54px;flex-shrink:0}.brand-wordmark{line-height:1.1}
+.hero{grid-template-columns:1.15fr 1fr}.hero:before{background:radial-gradient(ellipse at 80% 50%,#23638e3d,transparent 60%),repeating-linear-gradient(0deg,transparent 0 43px,#a5c7dc08 44px 45px),repeating-linear-gradient(90deg,transparent 0 43px,#a5c7dc08 44px 45px)}
+.naval-plate{margin:0;align-items:center;justify-content:center;background:url('naval-battleship.svg') center/130% auto no-repeat}
+.naval-plate>.clan-crest{width:min(100%,350px);filter:drop-shadow(0 12px 25px #000b);margin:0 auto 20px}
+.naval-plate:before{inset:2% 0 10%;background:conic-gradient(transparent 80%,#86c5ed15 96%,#a2dcff44);z-index:-1}.naval-plate:after{bottom:9%}
+.plate-caption{margin:0;text-align:center;width:85%;color:#9cb8cb;border-color:#c4a16b66}.plate-caption strong{color:#cfb482}
+.stats{background:linear-gradient(120deg,#173950,#0c2135);border-color:#bd99636b}.stat strong{color:#d8bd89}.stat small{color:#a2c4d6}
+.panel{background:linear-gradient(135deg,#15354c,#0c2033);border-color:#91a9b650}.panel .rating{color:#d1b27c}
+.award{background:#0d2539}.honors-board .highlights{background:linear-gradient(125deg,#071524,#143249,#091b2c);border-color:#b08e58}.honor.award{background:radial-gradient(ellipse at 50% 10%,#d7b97e1c,transparent 65%),#0c2439;border-color:#ae8c5b66}.honor-title{color:#d7bd8b}.honor-seal{background:#05121d66}
+.medal-ring{background:conic-gradient(#e4d3ab,#987545,#e4c78e,#83643e,#d7c8a5);border-color:#c4a16b}
+#mapchart{background-color:#0b263b;border-color:#7293a366}.maprow b{color:#a6cce2}.bar{background:#030d1880}.bar i{background:linear-gradient(90deg,#527d96,#a3c8d9)}th{background:#173448;color:#d6bd8a}input,select,button{background:#0b2032;border-color:#6a869a88}.note{background:#c4a16b0c;border-left-color:#c4a16b}.sources{background:linear-gradient(90deg,#1e476529,transparent)}.positive{color:#a5d5ce}.negative{color:#dfa899}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.naval-plate{max-width:500px;margin-top:25px;background-size:120% auto}.naval-plate>.clan-crest{width:280px}.plate-caption{margin:0 auto}}
+@media(max-width:600px){.brand .clan-crest{width:44px}.brand{font-size:15px}.naval-plate>.clan-crest{width:245px}.naval-plate{margin-top:20px}.nav{padding-top:10px;padding-bottom:12px}.brand-wordmark>small{font-size:7px}}
+
