@@ -36,4 +36,3 @@ Sirva dist/ por um servidor HTTP para visualizar. Não abra index.html diretamen
 As validações rejeitam alterações incompatíveis da estrutura, números inválidos, duplicações, divergências de totais e temporadas diferentes da 35. Uma nova temporada exige adaptação explícita.
 
 Documentação: [agendamentos do GitHub](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule) · [GitHub Pages com Actions](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
-

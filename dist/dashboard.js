@@ -1,0 +1,31 @@
+function renderDashboard(d){
+  const s=d.summary,m=d.meta,query=sel=>document.querySelector(sel);
+  const date=m.sourceDate||'não informada';
+  const sync=new Date(m.syncedAt).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'});
+  query('.hero p[style]').textContent=(m.period||'Temporada 35')+' · Brasília';
+  query('.stats').innerHTML=[['Batalhas do clã',num(s.battles),'Alfa + Bravo'],['Aproveitamento',pct(s.rate),num(s.wins)+' vitórias confirmadas'],['Jogadores participantes',num(s.participants),'Membros atuais na T35'],['Dano médio por participação',num(s.meanDamage),'Estatísticas individuais']].map(r=>'<div class="stat"><span>'+esc(r[0])+'</span><strong>'+r[1]+'</strong><small>'+esc(r[2])+'</small></div>').join('');
+  query('#panorama .grid2').innerHTML=d.teams.map(t=>'<article class="panel"><div class="team"><div><div class="eyebrow">Equipe</div><h3>'+esc(t.name)+'</h3></div><div class="rating">'+num(t.rating)+' <small style="font-size:11px">rating</small></div></div><div class="bar"><i style="width:'+t.rate*100+'%"></i></div><div class="detail"><span>'+num(t.battles)+' batalhas</span><span>'+num(t.wins)+' vitórias</span><span>'+pct(t.rate)+' aproveitamento</span></div></article>').join('');
+  const coverage='Histórico detalhado: '+num(s.detailed)+' de '+num(s.battles)+' partidas ('+pct(s.detailed/s.battles)+'). '+num(s.pending)+' partidas ainda sem detalhes.';
+  query('#panorama .note').textContent=coverage+' “Sem vitória” inclui eventuais empates, que a API do clã não separa.';
+  const eligible=d.players.filter(r=>r[2]>=10);
+  const leader=(list,index)=>[...list].sort((a,b)=>b[index]-a[index]||a[0].localeCompare(b[0]))[0];
+  const awards=[['Presença no convés',leader(d.players,2),2,num,'batalhas na temporada'],['Martelo da frota',leader(eligible,7),7,num,'dano médio por batalha'],['Casco resistente',leader(eligible,10),10,pct,'taxa de sobrevivência'],['Colecionador de vitórias',leader(eligible,6),6,pct,'aproveitamento'],['Caçador de navios',leader(eligible,9),9,dec,'destruições por batalha'],['Holofote da frota',leader(eligible,15),15,num,'dano por detecção total']];
+  query('.highlights').innerHTML=awards.map(([label,p,index,format,unit])=>'<article class="award"><small>'+esc(label)+'</small><h3>'+esc(p?.[0]||'Sem amostra elegível')+'</h3><b>'+(p?format(p[index]):'—')+'</b><small>'+esc(unit)+'</small></article>').join('');
+  query('#mapas > p').textContent='Compare o aproveitamento e a quantidade de vitórias e derrotas em cada mapa, considerando somente as partidas detalhadas.';
+  query('#mapas .note').textContent=coverage+' O ranking pode mudar com os registros faltantes.';
+  query('#tripulacao > p').textContent='Estatísticas de toda a temporada de cada conta, incluindo eventuais partidas em outros clãs. A soma de participações não equivale às '+num(s.battles)+' partidas da STAR Wise.';
+  const fire=query('#weapons').closest('section'),p=leader(d.players,13);
+  fire.querySelector('h2').textContent=num(s.destroyed)+' navios destruídos.';
+  fire.querySelector('.panel h3').textContent=p[0];
+  fire.querySelector('.panel .rating').textContent=num(p[13])+' destruições';
+  fire.querySelector('.panel p').textContent=pct(p[13]/s.destroyed)+' do total individual dos membros participantes.';
+  fire.querySelector('.note').textContent='Escopo individual da temporada. Data indicada na seção de armamentos: '+(m.weaponDate||'não informada')+'. Coleta geral: '+date+'. “Sem classificação” não identifica incêndio ou inundação; aeronaves indica navios destruídos.';
+  $('weapons').innerHTML=d.weapons.map(r=>'<div style="margin:12px 0"><div class="team"><span>'+esc(r[0])+'</span><span>'+num(r[1])+' · '+pct(s.destroyed?r[1]/s.destroyed:0)+'</span></div><div class="bar" style="margin:6px 0"><i style="background:var(--gold);width:'+(s.destroyed?r[1]/s.destroyed*100:0)+'%"></i></div></div>').join('');
+  const paragraphs=query('#fontes').querySelectorAll('p');
+  paragraphs[0].textContent='Última sincronização bem-sucedida: '+sync+' (Brasília). Data de coleta informada na planilha: '+date+'. O GitHub consulta a planilha a cada hora; alterações aparecem após uma execução bem-sucedida e sua publicação.';
+  paragraphs[2].textContent=m.closing||'As datas e previsões da campanha seguem as informações registradas na planilha.';
+  query('footer span:last-child').textContent='Temporada 35 · Sincronizado em '+sync;
+  const status=document.createElement('p');status.className='note';status.textContent='Sincronização automática · Última atualização: '+sync+' (Brasília).';
+  if(Date.now()-Date.parse(m.syncedAt)>3*60*60*1000)status.textContent+=' A atualização pode estar atrasada; confira a planilha original.';
+  query('#panorama').prepend(status);
+}
