@@ -7,7 +7,7 @@ function fixture(){
     resumo:[['Período: 16/09/2026 a 02/11/2026.'],['Equipe'],['Alfa','1','1','0','100%','1832','1','0'],['Bravo','1','0','1','0%','1809','1','0'],['Total','2','1'],['Coleta em 02/11/2026: totais conferidos']],
     jogadores:[['Jogador','ID conta','Batalhas'],['Teste','123','2','1','1','0','50%','1.234,5','1.000,0','0,50','50%','2.469','2.000','1','1','10','20','1','0','2000','1000','35']],
     batalhas:[['Data/hora Brasília','Equipe','Resultado','Variação rating','Mapa'],['02/11/2026 00:33','Alfa','Vitória','25','Anel','NA','[A] Oponente','1'],['01/11/2026 23:30','Bravo','Derrota','-18','Anel','NA','[B] Oponente','2']],
-    armamentos:[['Contagens da API da T35 • 13/10/2026'],['Tipo de armamento','Destruições'],['Bateria principal','1'],['Torpedos','0'],['Bateria secundária','0'],['Aeronaves','0'],['Abalroamento','0'],['Sem classificação','0']]
+    armamentos:[['Contagens da API da T35 • 13/10/2026'],['Tipo de armamento','Destruições'],['Bateria principal','1'],['Torpedos','0'],['Bateria secundária','0'],['Aeronaves','0'],['Abalroamento','0'],['Sem classificação','0'],['Jogador','Batalhas','Total','Principal','Torpedos','Secundárias','Aeronaves','Abalroamento','Sem classificação','Média','Conferência'],['Teste','2','1','1','0','0','0','0','0','0,5','0']]
   };
 }
 test('CSV aceita texto com vírgulas, aspas, quebra dentro de célula e CR duplicado',()=>{
@@ -29,6 +29,7 @@ test('Importação calcula totais, mapas e médias sem depender de células arre
   assert.equal(d.battles[0][0],'2026-11-02 00:33:00');
   assert.equal(d.meta.sourceDate,'02/11/2026');
   assert.equal(d.meta.weaponDate,'13/10/2026');
+  assert.deepEqual(d.weaponPlayers,[{name:'Teste',battles:2,counts:[1,0,0,0,0,0]}]);
 });
 test('Dados inconsistentes interrompem a sincronização',()=>{
   let f=fixture();f.resumo[2][6]='2';assert.throws(()=>transform(f));
@@ -36,4 +37,6 @@ test('Dados inconsistentes interrompem a sincronização',()=>{
   f=fixture();f.jogadores[1][21]='36';assert.throws(()=>transform(f),/temporada/);
   f=fixture();f.armamentos[2][1]='2';assert.throws(()=>transform(f),/Armamentos não/);
   f=fixture();f.batalhas[1][2]='Desconhecido';assert.throws(()=>transform(f),/Batalha inválida/);
+  f=fixture();f.armamentos.at(-1)[3]='2';assert.throws(()=>transform(f),/individuais inconsistentes/);
+  f=fixture();f.armamentos.at(-1)[10]='1';assert.throws(()=>transform(f),/individuais inconsistentes/);
 });

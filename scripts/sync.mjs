@@ -77,6 +77,18 @@ export function transform(sheets){
   const destroyed=players.reduce((n,r)=>n+r[13],0);
   assert(weapons.length===6&&weapons.every(r=>r[0]&&r[1]!==null&&r[1]>=0),'Armamentos inválidos');
   assert(weapons.reduce((n,r)=>n+r[1],0)===destroyed,'Armamentos não correspondem ao total individual');
+  const playerWeaponHeader=armamentos.findIndex(r=>r[0]==='Jogador'&&r[1]==='Batalhas'&&r[3]==='Principal');
+  assert(playerWeaponHeader>=0,'Detalhamento de armamentos por jogador ausente');
+  const weaponPlayers=armamentos.slice(playerWeaponHeader+1,playerWeaponHeader+1+players.length).map(r=>{
+    const player=players.find(p=>p[0]===r[0]);
+    assert(player,'Jogador de armamentos não reconhecido');
+    const counts=r.slice(3,9).map(numeric);
+    assert(counts.length===6&&counts.every(n=>Number.isInteger(n)&&n>=0),'Contagem individual de armamentos inválida');
+    assert(numeric(r[1])===player[2]&&numeric(r[2])===player[13]&&counts.reduce((a,b)=>a+b,0)===player[13]&&numeric(r[10])===0,'Armamentos individuais inconsistentes: '+r[0]);
+    return {name:r[0],battles:player[2],counts};
+  });
+  assert(weaponPlayers.length===players.length&&new Set(weaponPlayers.map(p=>p.name)).size===players.length,'Detalhamento de armamentos incompleto ou duplicado');
+  weapons.forEach((w,i)=>assert(weaponPlayers.reduce((sum,p)=>sum+p.counts[i],0)===w[1],'Total por armamento divergente: '+w[0]));
   const totalBattles=teams.reduce((n,t)=>n+t.battles,0),totalWins=teams.reduce((n,t)=>n+t.wins,0);
   const totalRow=teamRows.find(r=>r[0]==='Total');
   assert(totalRow&&numeric(totalRow[1])===totalBattles&&numeric(totalRow[2])===totalWins,'Resumo total inconsistente');
@@ -85,7 +97,7 @@ export function transform(sheets){
   const weaponDate=(weaponText.match(/\d{2}\/\d{2}\/\d{4}/)||[])[0]||null;
   const period=resumo.find(r=>r[0]?.startsWith('Período:'))?.[0]||'';
   const closing=resumo.find(r=>r[0]?.startsWith('Encerramento previsto:'))?.[0]||'';
-  return {players,battles,maps,teams,weapons,summary:{battles:totalBattles,wins:totalWins,rate:totalBattles?totalWins/totalBattles:0,participants:players.length,meanDamage:players.reduce((n,r)=>n+r[11],0)/players.reduce((n,r)=>n+r[2],0),destroyed,detailed:battles.length,pending:totalBattles-battles.length},meta:{sourceDate,weaponDate,period,closing,sheetId,season:35}};
+  return {players,battles,maps,teams,weapons,weaponPlayers,summary:{battles:totalBattles,wins:totalWins,rate:totalBattles?totalWins/totalBattles:0,participants:players.length,meanDamage:players.reduce((n,r)=>n+r[11],0)/players.reduce((n,r)=>n+r[2],0),destroyed,detailed:battles.length,pending:totalBattles-battles.length},meta:{sourceDate,weaponDate,period,closing,sheetId,season:35}};
 }
 const tabs={resumo:645668150,jogadores:35001001,batalhas:899896600,armamentos:35004001};
 async function download(gid){

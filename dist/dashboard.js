@@ -26,7 +26,7 @@ function renderDashboard(d){
   fire.querySelector('.panel .rating').textContent=num(p[13])+' destruições';
   fire.querySelector('.panel p').textContent=pct(p[13]/s.destroyed)+' do total individual dos membros participantes.';
   fire.querySelector('.note').textContent='Escopo individual da temporada. Data indicada na seção de armamentos: '+(m.weaponDate||'não informada')+'. Coleta geral: '+date+'. “Sem classificação” não identifica incêndio ou inundação; aeronaves indica navios destruídos.';
-  $('weapons').innerHTML=d.weapons.map(r=>'<div style="margin:12px 0"><div class="team"><span>'+esc(r[0])+'</span><span>'+num(r[1])+' · '+pct(s.destroyed?r[1]/s.destroyed:0)+'</span></div><div class="bar" style="margin:6px 0"><i style="background:var(--gold);width:'+(s.destroyed?r[1]/s.destroyed*100:0)+'%"></i></div></div>').join('');
+  renderWeaponDetails(d);
   const paragraphs=query('#fontes').querySelectorAll('p');
   paragraphs[0].textContent='Última sincronização bem-sucedida: '+sync+' (Brasília). Data de coleta informada na planilha: '+date+'. O GitHub consulta a planilha a cada hora; alterações aparecem após uma execução bem-sucedida e sua publicação.';
   paragraphs[2].textContent=m.closing||'As datas e previsões da campanha seguem as informações registradas na planilha.';
