@@ -17,3 +17,9 @@ header{background:#06111ef5;border-bottom-color:#b18b5255}.brand{display:flex;al
 @media(max-width:900px){.hero{grid-template-columns:1fr}.naval-plate{max-width:500px;margin-top:25px;background-size:120% auto}.naval-plate>.clan-crest{width:280px}.plate-caption{margin:0 auto}}
 @media(max-width:600px){.brand .clan-crest{width:44px}.brand{font-size:15px}.naval-plate>.clan-crest{width:245px}.naval-plate{margin-top:20px}.nav{padding-top:10px;padding-bottom:12px}.brand-wordmark>small{font-size:7px}}
 
+
+/* Brasão com transparência real; sem máscara geométrica ou animação de fundo. */
+.clan-crest{clip-path:none;aspect-ratio:auto;overflow:visible}
+.clan-crest img{position:static!important;top:auto;left:auto;width:100%!important;height:auto;animation:none!important;transform:none!important}
+.naval-plate{background:none!important}
+.naval-plate:before,.naval-plate:after{display:none!important;animation:none!important}
