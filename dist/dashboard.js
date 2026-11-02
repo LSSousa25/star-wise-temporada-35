@@ -17,6 +17,7 @@ function renderDashboard(d){
   board.querySelector('h2').textContent='Honra ao mérito da frota.';
   board.querySelector('.head p').textContent='Condecorações simbólicas da STAR Wise · Temporada 35. Desempenho comparado com mínimo de 10 batalhas; participação considera todos os jogadores.';
   query('.highlights').innerHTML=awards.map(([label,p,index,format,unit],i)=>'<article class="award honor honor-'+i+'"><div class="medal" aria-hidden="true"><div class="ribbon"></div><div class="medal-ring"><span>'+symbols[i]+'</span></div></div><div class="honor-title">'+honors[i]+'</div><small class="honor-citation">'+esc(label)+'</small><h3>'+esc(p?.[0]||'Sem amostra elegível')+'</h3><div class="honor-result"><b>'+(p?format(p[index]):'—')+'</b><small>'+esc(unit)+'</small></div><div class="honor-seal">STAR WISE · T35</div></article>').join('');
+  renderMedalParticipants(d);
   query('#mapas > p').textContent='Compare o aproveitamento e a quantidade de vitórias e derrotas em cada mapa, considerando somente as partidas detalhadas.';
   query('#mapas .note').textContent=coverage+' O ranking pode mudar com os registros faltantes.';
   query('#tripulacao > p').textContent='Estatísticas de toda a temporada de cada conta, incluindo eventuais partidas em outros clãs. A soma de participações não equivale às '+num(s.battles)+' partidas da STAR Wise.';
